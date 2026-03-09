@@ -8,7 +8,7 @@ import LoadingScreen from '../../../components/LoadingScreen'
 
 const Login = () => {
 
-    const { loading, handleLogin } = useAuth()
+    const { loading, loadingMessage, handleLogin } = useAuth()
     const { anonymousReport, setAnonymousReport, setReport } = useContext(InterviewContext)
     const navigate = useNavigate()
 
@@ -38,7 +38,7 @@ const Login = () => {
     }
 
     if(loading){
-        return <LoadingScreen message="Logging you in..." variant="default" />
+        return <LoadingScreen message={loadingMessage || "Logging you in..."} variant="default" />
     }
 
 

@@ -62,7 +62,7 @@ const RoadMapDay = ({ day }) => (
 // ── Main Component ────────────────────────────────────────────────────────────
 const Interview = () => {
     const [ activeNav, setActiveNav ] = useState('technical')
-    const { report, setReport, getReportById, loading, getResumePdf, saveAnonymousReportAfterLogin, anonymousReport } = useInterview()
+    const { report, setReport, getReportById, loading, loadingMessage, getResumePdf, saveAnonymousReportAfterLogin, anonymousReport } = useInterview()
     const { interviewId } = useParams()
     const { user, loading: authLoading } = useAuth()
     const navigate = useNavigate()
@@ -131,7 +131,7 @@ const Interview = () => {
     }
 
     if (loading) {
-        return <LoadingScreen message="Loading your interview plan..." variant="default" />
+        return <LoadingScreen message={loadingMessage || "Processing..."} variant="default" />
     }
 
     if (!report && interviewId !== 'preview') {

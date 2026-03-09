@@ -13,9 +13,16 @@ export const useInterview = () => {
         throw new Error("useInterview must be used within an InterviewProvider")
     }
 
-    const { loading, setLoading, report, setReport, reports, setReports, anonymousReport, setAnonymousReport } = context
+    const { 
+        loading, setLoading, 
+        loadingMessage, setLoadingMessage,
+        report, setReport, 
+        reports, setReports, 
+        anonymousReport, setAnonymousReport 
+    } = context
 
     const generateReport = async ({ jobDescription, selfDescription, resumeFile }) => {
+        setLoadingMessage("Generating your personalized interview report...")
         setLoading(true)
         let response = null
         try {
@@ -34,6 +41,7 @@ export const useInterview = () => {
             throw error
         } finally {
             setLoading(false)
+            setLoadingMessage("")
         }
 
         return response
@@ -57,6 +65,7 @@ export const useInterview = () => {
 
         if (!reportToSave) return null
 
+        setLoadingMessage("Saving your interview report to your account...")
         setLoading(true)
         try {
             const response = await saveAnonymousReport(reportToSave)
@@ -69,10 +78,12 @@ export const useInterview = () => {
             return null
         } finally {
             setLoading(false)
+            setLoadingMessage("")
         }
     }
 
     const getReportById = async (interviewId) => {
+        setLoadingMessage("Fetching your interview report...")
         setLoading(true)
         let response = null
         try {
@@ -84,11 +95,13 @@ export const useInterview = () => {
             console.error("Error fetching report:", error)
         } finally {
             setLoading(false)
+            setLoadingMessage("")
         }
         return response?.interviewReport
     }
 
     const getReports = async () => {
+        setLoadingMessage("Loading your interview history...")
         setLoading(true)
         let response = null
         try {
@@ -101,12 +114,14 @@ export const useInterview = () => {
             setReports([])
         } finally {
             setLoading(false)
+            setLoadingMessage("")
         }
 
         return response?.interviewReports || []
     }
 
     const getResumePdf = async (interviewReportId) => {
+        setLoadingMessage("Generating your professional resume PDF...")
         setLoading(true)
         let response = null
         try {
@@ -122,12 +137,20 @@ export const useInterview = () => {
             console.log(error)
         } finally {
             setLoading(false)
+            setLoadingMessage("")
         }
     }
 
     // Don't auto-fetch on mount - let components decide when to fetch
     // This prevents 401 errors for anonymous users
 
-    return { loading, report, setReport, reports, anonymousReport, generateReport, getReportById, getReports, getResumePdf, saveAnonymousReportAfterLogin }
+    return { 
+        loading, loadingMessage,
+        report, setReport, 
+        reports, anonymousReport, 
+        generateReport, getReportById, 
+        getReports, getResumePdf, 
+        saveAnonymousReportAfterLogin 
+    }
 
 }

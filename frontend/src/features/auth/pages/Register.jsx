@@ -12,7 +12,7 @@ const Register = () => {
     const [ email, setEmail ] = useState("")
     const [ password, setPassword ] = useState("")
 
-    const {loading,handleRegister} = useAuth()
+    const {loading, loadingMessage, handleRegister} = useAuth()
     const { anonymousReport, setAnonymousReport, setReport } = useContext(InterviewContext)
     
     const handleSubmit = async (e) => {
@@ -38,7 +38,7 @@ const Register = () => {
     }
 
     if(loading){
-        return <LoadingScreen message="Creating your account..." variant="default" />
+        return <LoadingScreen message={loadingMessage || "Creating your account..."} variant="default" />
     }
 
     return (

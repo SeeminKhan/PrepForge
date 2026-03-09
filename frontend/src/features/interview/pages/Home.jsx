@@ -9,7 +9,7 @@ const Home = () => {
 
     const { user } = useAuth()
 
-    const { loading, generateReport, reports, getReports } = useInterview()
+    const { loading, loadingMessage, generateReport, reports, getReports } = useInterview()
     const [ jobDescription, setJobDescription ] = useState("")
     const [ selfDescription, setSelfDescription ] = useState("")
     const [ selectedFileName, setSelectedFileName ] = useState(null)
@@ -71,7 +71,7 @@ const Home = () => {
     }
 
     if (loading) {
-        return <LoadingScreen message="Generating Your Interview Strategy" variant="generating" />
+        return <LoadingScreen message={loadingMessage || "Generating Your Interview Strategy"} variant="generating" />
     }
 
     return (
