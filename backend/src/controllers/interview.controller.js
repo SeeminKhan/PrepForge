@@ -163,9 +163,6 @@ async function updateInterviewStatusController(req, res) {
     });
 }
 
-module.exports = { generateInterViewReportController, getInterviewReportByIdController, getAllInterviewReportsController, generateResumePdfController, updateInterviewStatusController, saveAnonymousReportController }
-
-
 /**
  * @description Controller to save an anonymous interview report after user logs in
  */
@@ -213,3 +210,6 @@ async function saveAnonymousReportController(req, res) {
         })
     }
 }
+
+
+module.exports = { generateInterViewReportController, getInterviewReportByIdController, getAllInterviewReportsController, generateResumePdfController, updateInterviewStatusController, saveAnonymousReportController }
