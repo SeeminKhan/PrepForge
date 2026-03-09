@@ -1,0 +1,221 @@
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.95); }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes dotPulse {
+    0%, 100% { opacity: 0.3; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes ringPulse {
+    0% { transform: scale(0.8); opacity: 0.8; }
+    50% { transform: scale(1.1); opacity: 0.4; }
+    100% { transform: scale(0.8); opacity: 0.8; }
+}
+
+@keyframes shimmer {
+    0% { background-position: -1000px 0; }
+    100% { background-position: 1000px 0; }
+}
+
+.loading-screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0B0E14 0%, #161B22 100%);
+    padding: 2rem;
+
+    &__content {
+        text-align: center;
+        animation: fadeInUp 0.6s ease-out;
+    }
+
+    &__title {
+        font-size: 1.75rem;
+        font-weight: 600;
+        color: #e6edf3;
+        margin: 2rem 0 0.75rem;
+        letter-spacing: -0.02em;
+    }
+
+    &__subtitle {
+        font-size: 1rem;
+        color: #9CA3AF;
+        max-width: 500px;
+        margin: 0 auto 2rem;
+        line-height: 1.6;
+    }
+}
+
+// Default Spinner
+.loading-spinner--default {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+
+    .spinner-circle {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border: 4px solid transparent;
+        border-top-color: #6366F1;
+        border-radius: 50%;
+        animation: spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+
+        &--delay {
+            border-top-color: #818CF8;
+            animation-delay: -0.6s;
+        }
+    }
+}
+
+// AI Generating Spinner
+.loading-spinner--ai {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+
+    .spinner-ring {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border: 3px solid transparent;
+        border-radius: 50%;
+        
+        &:nth-child(1) {
+            border-top-color: #6366F1;
+            animation: spin 2s linear infinite;
+        }
+        
+        &:nth-child(2) {
+            border-right-color: #818CF8;
+            animation: spin 3s linear infinite reverse;
+            width: 85%;
+            height: 85%;
+            top: 7.5%;
+            left: 7.5%;
+        }
+        
+        &:nth-child(3) {
+            border-bottom-color: #A5B4FC;
+            animation: spin 4s linear infinite;
+            width: 70%;
+            height: 70%;
+            top: 15%;
+            left: 15%;
+        }
+    }
+
+    .spinner-icon {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #6366F1;
+        animation: pulse 2s ease-in-out infinite;
+    }
+}
+
+// Board Loading Spinner
+.loading-spinner--board {
+    margin: 0 auto 2rem;
+
+    .board-columns-skeleton {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+    }
+
+    .skeleton-column {
+        width: 80px;
+        height: 120px;
+        background: linear-gradient(
+            90deg,
+            #1C2128 0%,
+            #2D333B 50%,
+            #1C2128 100%
+        );
+        background-size: 200% 100%;
+        border-radius: 8px;
+        animation: shimmer 2s infinite;
+
+        &:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        &:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+    }
+}
+
+// Loading Dots
+.loading-dots {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1.5rem;
+
+    span {
+        width: 8px;
+        height: 8px;
+        background: #6366F1;
+        border-radius: 50%;
+        animation: dotPulse 1.4s ease-in-out infinite;
+
+        &:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        &:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+    }
+}
+
+// Responsive
+@media (max-width: 768px) {
+    .loading-screen {
+        &__title {
+            font-size: 1.5rem;
+        }
+
+        &__subtitle {
+            font-size: 0.9rem;
+            padding: 0 1rem;
+        }
+    }
+
+    .loading-spinner--ai {
+        width: 100px;
+        height: 100px;
+
+        .spinner-icon {
+            width: 32px;
+            height: 32px;
+        }
+    }
+}

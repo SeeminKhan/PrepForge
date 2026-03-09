@@ -1,0 +1,520 @@
+// ── Variables ────────────────────────────────────────────────────────────────
+$bg-page: #0B0E14;
+$bg-card: #161B22;
+$bg-panel: #161B22;
+$bg-input: #1e2535;
+$border-color: #30363D;
+$text-primary: #e6edf3;
+$text-muted: #9CA3AF;
+$accent: #6366F1;
+$accent-alt: #4f46e5;
+$badge-required: #F59E0B;
+$badge-best: #10B981;
+$info-bg: rgba(99, 102, 241, 0.1);
+$info-border: #30363D;
+$font-stack: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+// severity palette
+$severity-high: #ef4444;
+$severity-medium: #F59E0B;
+$severity-low: #10B981;
+
+// ── Animations ───────────────────────────────────────────────────────────────
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+// ── Page Shell ───────────────────────────────────────────────────────────────
+.home-page {
+    width: 100%;
+    min-height: 100vh;
+    background-color: $bg-page;
+    color: $text-primary;
+    font-family: $font-stack;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 2rem 4rem;
+    gap: 3rem;
+
+    @media (max-width: 768px) {
+        padding: 2rem 1.5rem 4rem;
+        gap: 2rem;
+    }
+}
+
+// ── Page Header ──────────────────────────────────────────────────────────────
+.page-header {
+    text-align: center;
+    padding-top: 1rem;
+    // margin-bottom: 2.5rem;
+
+    @media (max-width: 768px) {
+        margin-bottom: 2rem;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+        color: $text-primary;
+        letter-spacing: -0.02em;
+
+        @media (max-width: 768px) {
+            font-size: 2rem;
+        }
+    }
+
+    p {
+        color: $text-muted;
+        font-size: 1.05rem;
+        max-width: 560px;
+        margin: 0 auto;
+        line-height: 1.7;
+
+        @media (max-width: 768px) {
+            font-size: 0.95rem;
+        }
+    }
+
+    .highlight {
+        background: linear-gradient(135deg, $accent 0%, #818CF8 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+}
+
+// ── Main Card ─────────────────────────────────────────────────────────────────
+.interview-card {
+    width: 100%;
+    max-width: 1400px;
+
+    @media (max-width: 768px) {
+        background-color: $bg-card;
+        border: 1px solid $border-color;
+        border-radius: 1.5rem;
+        overflow: hidden;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    &__body {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 3rem;
+        padding: 0;
+        min-height: 600px;
+
+        @media (max-width: 768px) {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            padding: 1.5rem;
+            min-height: auto;
+        }
+    }
+
+    &__footer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        padding: 2.5rem 0;
+        margin-top: 0.5rem;
+
+        @media (max-width: 768px) {
+            padding: 2rem;
+            margin-top: 0;
+            border-top: 1px solid $border-color;
+            background: linear-gradient(180deg, transparent 0%, rgba(99, 102, 241, 0.03) 100%);
+        }
+
+        .footer-info {
+            font-size: 0.85rem;
+            color: $text-muted;
+        }
+    }
+}
+
+// ── Panels ────────────────────────────────────────────────────────────────────
+.panel-divider {
+    display: none; // Remove divider in grid layout
+}
+
+.panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    background-color: $bg-card;
+    border: 1px solid $border-color;
+    border-radius: 1.25rem;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+
+    @media (max-width: 768px) {
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+    }
+
+    &__header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 0.5rem;
+
+        h2 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: $text-primary;
+            flex: 1;
+        }
+    }
+
+    &__icon {
+        display: flex;
+        align-items: center;
+        color: $accent;
+    }
+
+    &__textarea {
+        flex: 1;
+        width: 100%;
+        background-color: $bg-input;
+        border: 2px solid $border-color;
+        border-radius: 0.75rem;
+        padding: 1.25rem 1.5rem;
+        color: $text-primary;
+        font-family: $font-stack;
+        font-size: 0.95rem;
+        resize: none;
+        outline: none;
+        transition: all 0.3s ease;
+        line-height: 1.7;
+        position: relative;
+
+        &::placeholder {
+            color: $text-muted;
+            opacity: 0.6;
+        }
+
+        &:focus {
+            border-color: $accent;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+            background-color: lighten($bg-input, 2%);
+        }
+
+        &--short {
+            flex: unset;
+            min-height: 140px;
+        }
+    }
+
+    &--left {
+        grid-column: span 7;
+        position: relative;
+
+        @media (max-width: 768px) {
+            grid-column: span 12;
+        }
+
+        .panel__textarea {
+            min-height: 500px;
+
+            @media (max-width: 768px) {
+                min-height: 300px;
+            }
+        }
+
+        .char-counter {
+            position: absolute;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            font-size: 0.8rem;
+            color: $text-muted;
+            background-color: rgba($bg-card, 0.9);
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+        }
+    }
+
+    &--right {
+        grid-column: span 5;
+        gap: 1rem;
+
+        @media (max-width: 768px) {
+            grid-column: span 12;
+        }
+    }
+}
+
+// ── Badges ────────────────────────────────────────────────────────────────────
+.badge {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.15rem 0.5rem;
+    border-radius: 0.3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+
+    &--required {
+        background-color: rgba($badge-required, 0.15);
+        color: $badge-required;
+        border: 1px solid rgba($badge-required, 0.3);
+    }
+
+    &--best {
+        background-color: rgba($badge-best, 0.15);
+        color: $badge-best;
+        border: 1px solid rgba($badge-best, 0.3);
+    }
+}
+
+// ── Section Label ─────────────────────────────────────────────────────────────
+.section-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: $text-primary;
+    margin-bottom: 0.25rem;
+}
+
+// ── Dropzone ──────────────────────────────────────────────────────────────────
+.upload-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.dropzone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 2rem 1.5rem;
+    background-color: $bg-input;
+    border: 2px dashed $border-color;
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+
+    &:hover {
+        border-color: $accent;
+        background-color: rgba($accent, 0.05);
+        transform: translateY(-2px);
+    }
+
+    &__icon {
+        color: $accent;
+        margin-bottom: 0.5rem;
+    }
+
+    &__title {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: $text-primary;
+        margin: 0;
+    }
+
+    &__subtitle {
+        font-size: 0.8rem;
+        color: $text-muted;
+        margin: 0;
+    }
+}
+
+// ── OR Divider ────────────────────────────────────────────────────────────────
+.or-divider {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: $text-muted;
+    font-size: 0.75rem;
+
+    &::before,
+    &::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background-color: $border-color;
+    }
+
+    span {
+        white-space: nowrap;
+    }
+}
+
+// ── Self Description ──────────────────────────────────────────────────────────
+.self-description {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+// ── Info Box ──────────────────────────────────────────────────────────────────
+.info-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    padding: 0.75rem 1rem;
+    background-color: $info-bg;
+    border: 1px solid $info-border;
+    border-radius: 0.5rem;
+
+    &__icon {
+        flex-shrink: 0;
+        color: #4a90e2;
+        margin-top: 1px;
+    }
+
+    p {
+        margin: 0;
+        font-size: 0.8rem;
+        color: #8ab4f8;
+        line-height: 1.5;
+
+        strong {
+            color: $text-primary;
+        }
+    }
+}
+
+// ── Generate Button ───────────────────────────────────────────────────────────
+.generate-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 1rem 3rem;
+    background: linear-gradient(135deg, $accent 0%, darken($accent, 8%) 100%);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: $font-stack;
+    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
+    min-width: 320px;
+
+    &:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 0 30px rgba(99, 102, 241, 0.6), 0 6px 20px rgba(99, 102, 241, 0.4);
+    }
+
+    &:active:not(:disabled) {
+        transform: translateY(0);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.7;
+    }
+}
+
+.recent-reports {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    width: 100%;
+    max-width: 1400px;
+
+    h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: $text-primary;
+        margin: 0;
+        text-align: center;
+    }
+
+    .reports-list {
+
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 1.25rem;
+
+        @media (max-width: 768px) {
+            grid-template-columns: 1fr;
+        }
+
+        .report-item {
+            background-color: $bg-card;
+            border: 1px solid $border-color;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            &:hover {
+                border-color: $accent;
+                transform: translateY(-4px);
+                box-shadow: 0 8px 24px rgba(99, 102, 241, 0.2);
+            }
+
+            h3 {
+                font-size: 1.1rem;
+                font-weight: 600;
+                color: $text-primary;
+                margin: 0;
+            }
+
+            .report-meta {
+                font-size: 0.85rem;
+                color: $text-muted;
+            }
+
+            .match-score {
+                font-size: 0.9rem;
+                font-weight: 700;
+                padding: 0.5rem 1rem;
+                border-radius: 0.5rem;
+                width: fit-content;
+
+                &.score--high {
+                    color: $severity-low;
+                    background-color: rgba($severity-low, 0.15);
+                }
+
+                &.score--mid {
+                    color: $severity-medium;
+                    background-color: rgba($severity-medium, 0.15);
+                }
+
+                &.score--low {
+                    color: $severity-high;
+                    background-color: rgba($severity-high, 0.15);
+                }
+            }
+        }
+    }
+}
+
+
+// ── Page Footer ───────────────────────────────────────────────────────────────
+.page-footer {
+    display: flex;
+    gap: 1.5rem;
+
+    a {
+        font-size: 0.8rem;
+        color: $text-muted;
+        text-decoration: none;
+        transition: color 0.2s;
+
+        &:hover {
+            color: $text-primary;
+        }
+    }
+}
